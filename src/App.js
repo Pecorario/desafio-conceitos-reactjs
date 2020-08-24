@@ -27,7 +27,11 @@ function App() {
   }
 
   async function handleRemoveRepository(id) {
-    // TODO
+    await api.delete(`repositories/${id}`);
+
+    setRepositories(repositories.filter(
+      repository => repository.id !== id
+    )); //mantenho no repositorio apenas os repositorios cujo id seja diferente desse que removi
   }
 
   return (
@@ -38,7 +42,7 @@ function App() {
             <li key={repository.id}>
               {repository.title}
 
-              <button onClick={() => handleRemoveRepository(1)}>
+              <button onClick={() => handleRemoveRepository(repository.id)}>
                 Remover
               </button>
             </li>
