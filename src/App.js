@@ -5,6 +5,7 @@ import "./styles.css";
 
 function App() {
   const [repositories, setRepositories] = useState([]);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     api.get('repositories').then(response => {
@@ -13,7 +14,16 @@ function App() {
   }, []);
 
   async function handleAddRepository() {
-    // TODO
+    const response = await api.post('repositories', {
+      title: `Repositório  ${count}`,
+      url: "https://github.com/Pecorario",
+      techs: "ReactJS"
+    });
+
+    const repository = response.data;
+
+    setRepositories([...repositories, repository]);
+    setCount(count + 1);
   }
 
   async function handleRemoveRepository(id) {
